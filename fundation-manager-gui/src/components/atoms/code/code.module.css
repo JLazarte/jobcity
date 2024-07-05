@@ -1,0 +1,14 @@
+.code {
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(var(--callout-rgb), 0.5);
+    border: 1px solid rgba(var(--callout-border-rgb), 0.3);
+    border-radius: var(--border-radius);
+}
+
+.code, .code > * {
+    font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.5rem;
+}

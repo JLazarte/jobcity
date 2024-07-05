@@ -1,0 +1,11 @@
+.flex {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.flexEven > * {
+    flex: 1
+}

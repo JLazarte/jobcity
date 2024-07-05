@@ -1,20 +1,24 @@
-import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { Label } from "@/components/atoms/label";
 import { Card } from "@/components/molecules/card";
+import { Code } from "@/components/atoms/code";
+
+import NonProfitService from "@/services/nonprofit/nonprofit.service";
+import { Flex } from "@/components/atoms/flex";
+import { List } from "@/components/atoms/list";
 
 export default function Home() {
 
   const MenuOptions = [
     {
       label: <>Nonprofit <span>-&gt;</span></>,
-      description: "List non profit companies",
+      description: "CRUD Companies",
       link: "/companies"
     },
     {
       label: <>Templates <span>-&gt;</span></>,
-      description: "Create or Modify template",
+      description: "CRUD Templates",
       link: "/templates"
     },
     {
@@ -27,36 +31,34 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        {
-          MenuOptions.map(option => <Link
-              href={option.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Card {...option}></Card>
-            </Link>
-          )
-        }
-      </div>
+      <Flex className={styles.container}>
+        <Label>NonProfit Accounts Manager</Label>
+        <Code>Searching for list of companies <span className="loading"></span></Code>
+        <List style={{ flex: 1 }}>
+          <Flex style={{ flexDirection: "column", height: "inherit", flexWrap: "nowrap" }}>
+            {
+                NonProfitService
+                  .getCompanies()
+                  .map((company: any) => <Card
+                      label={`Name: ${company.name}`}
+                      description={[company.address, company.email].join(" - ")}>
+                  </Card>)
+            }
+          </Flex>
+        </List>
+        <Flex even={true}>
+          {
+            MenuOptions.map(option => <Link
+                href={option.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Card {...option}></Card>
+              </Link>
+            )
+          }
+        </Flex>
+      </Flex>
     </main>
   );
 }
